@@ -68,18 +68,40 @@ namespace SkillTest_Test
 
             if (_useForLoop)
             {
-                for (int idx = 1; idx < _persons.Keys.Count+1; idx++) 
+                if (UseList)
                 {
-                    result += "\r\n";
-                    result += _persons[idx];
+                    for (int idx = 0; idx < _personsList.Count; idx++)
+                    {
+                        result += "\r\n";
+                        result += _personsList[idx];
+                    }
+                }
+                else
+                {
+                    for (int idx = 1; idx < _persons.Keys.Count + 1; idx++)
+                    {
+                        result += "\r\n";
+                        result += _persons[idx];
+                    }
                 }
             }
             else
             {
-                foreach (Person p in _persons.Values)
+                if (UseList)
                 {
-                    result += "\r\n";
-                    result += p;
+                    foreach (Person p in _personsList)
+                    {
+                        result += "\r\n";
+                        result += p;
+                    }
+                }
+                else
+                {
+                    foreach (Person p in _persons.Values)
+                    {
+                        result += "\r\n";
+                        result += p;
+                    }
                 }
             }
             return result;
