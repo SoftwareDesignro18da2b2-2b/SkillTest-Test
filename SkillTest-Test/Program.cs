@@ -16,10 +16,24 @@ namespace SkillTest_Test
             Console.WriteLine(p2);
 
             Console.WriteLine("Opgave 4: Udvid Tilmeldingskatalog klassen med nogle CRUD metoder");
-            Tilmeldingskatalog tKat = new Tilmeldingskatalog("Sommerlejr", true, new DateTime(2022,7,23), new DateTime(2022, 7, 30));
-            tKat.AddPerson(p1);
-            tKat.AddPerson(p2);
-            Console.WriteLine(tKat);
+            Tilmeldingskatalog tKat1 = new Tilmeldingskatalog("Sommerlejr", true, new DateTime(2022,7,23), new DateTime(2022, 7, 30));
+            tKat1.AddPerson(p1);
+            tKat1.AddPerson(p2);
+            Console.WriteLine(tKat1);
+
+            try
+            {
+                Tilmeldingskatalog tKat2 = new Tilmeldingskatalog("Sommerlejr", true, new DateTime(2022, 7, 30), new DateTime(2022, 7, 23));
+            }
+            catch
+            {
+                Console.WriteLine("Caught exception on end date and start date");
+            }
+
+            Console.WriteLine("Opgave 10 Anvendelse af for løkke");
+            tKat1.UseForLoop = true;
+            Console.WriteLine(tKat1);
+
         }
     }
 }
