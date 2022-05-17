@@ -14,10 +14,11 @@ namespace SkillTest_Test
         DateTime _startdato;
         DateTime _slutdato;
         bool _useForLoop;
-        bool _useList;
+        static bool _useList = false;
 
         public Tilmeldingskatalog(string lejrID, bool ugeRegel, DateTime startdato, DateTime slutdato)
         {
+
             if (UseList)
             {
                 _personsList = new List<Person>(); 
@@ -27,11 +28,23 @@ namespace SkillTest_Test
                 _persons = new Dictionary<int, Person>();
             }
             _useForLoop = false;
-            _useList = false;
             LejrID = lejrID;
             UgeRegel = ugeRegel;
             Slutdato = slutdato;
             Startdato = startdato;
+
+            VerifyWeekRule();
+        }
+
+        void VerifyWeekRule()
+        {
+            if (UgeRegel)
+            {
+                if (Startdato.Date.AddDays(14) != Slutdato.Date)
+                {
+                    throw new ArgumentException("Time period must be 14 days");
+                }
+            }
         }
 
         void VerifyStartEndDate(DateTime startDate, DateTime endDate)
@@ -57,14 +70,15 @@ namespace SkillTest_Test
         }
 
         public bool UseForLoop { get {return _useForLoop; } set { _useForLoop = value; } }
-        public bool UseList { get { return _useList; } set { _useList = value; } }
+        public static bool UseList { get { return _useList; } set { _useList = value; } }
 
         public override string ToString()
         {
             string result = "";
 
-            result += $"LejrID: {LejrID}, UgeRegel: {UgeRegel}, Startdato: {Startdato}, Slutdato: {Slutdato}";
-            result += "Deltagere\r\n";
+            result += "Katalog:\r\n";
+            result += $"LejrID: {LejrID}, UgeRegel: {UgeRegel}, Startdato: {Startdato}, Slutdato: {Slutdato}\r\n";
+            result += "Deltagere:";
 
             if (_useForLoop)
             {
